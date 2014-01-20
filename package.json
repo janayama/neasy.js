@@ -1,8 +1,10 @@
 {
-	"name": "neasy",
-	"version": "0.0.1",
+	"name"		: "neasy",
+	"version"	: "0.0.1",
 	"dependencies": {
-		"express": "3.0.5",
-		"get-methodoverride": "0.1.2"
+		"express"				: "3.0.5",
+		"get-methodoverride"	: "0.1.2",
+		"twig"					: "0.6",
+		"mongodb"				: "1.2.7"
 	}
 }
