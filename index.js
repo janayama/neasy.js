@@ -4,9 +4,10 @@
 	var http 			= require('http');
 	var express 		= require('express');
 	var app 			= express();
-	var cookieSecret 	= 'yoursuperamazincookiesecret';
+	var cookieSecret 	= config.cookie.secret || 'yoursuperamazincookiesecret';
 	var server 			= http.createServer(app);
-	var fs 				= fs = require("fs");
+	var fs 				= require("fs");
+	var queryParser  	= require('./lib/queryParser.js');
 
 	var dir 			= {
 		routes	: path + '/routes',
@@ -22,11 +23,10 @@
 	app.config = config;
 	app.routes = fs.readdirSync(dir.routes).sort();
 	app.models = fs.readdirSync(dir.models).sort();
-	app.query  = require("./lib/query.js")(app);
+	app.query  = queryParser(app);
 
 	// default express settings
 	app.use(express.compress());
-	app.use(express.cookieParser());
 	app.use(express.cookieParser(cookieSecret));
 	app.use(express.cookieSession({path: '/', httpOnly: true, maxAge: null, secret: cookieSecret}));
 	app.use(express.bodyParser());
