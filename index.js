@@ -16,7 +16,11 @@
 	};
 
 
-	
+	if (config.socket) {
+		app.io = require('socket.io').listen(server);
+		
+		require('./lib/io.js').use(app);
+	}
 
 
 	// custom express settings
