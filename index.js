@@ -5,9 +5,9 @@
 	var express 		= require('express');
 	var app 			= express();
 	var cookieSecret 	= config.cookie.secret || 'yoursuperamazincookiesecret';
-	var server 			= http.createServer(app);
 	var fs 				= require("fs");
 	var queryParser  	= require('./lib/queryParser.js');
+	var server 			= http.createServer(app);
 
 	var dir 			= {
 		routes	: path + '/routes',
@@ -17,9 +17,7 @@
 
 
 	if (config.socket) {
-		app.io = require('socket.io').listen(server);
-		
-		require('./lib/io.js').use(app);
+		require('./lib/io').use(server);
 	}
 
 
