@@ -5,10 +5,10 @@
 	var express 		= require('express');
 	var app 			= express();
 	var cookieSecret 	= config.cookie.secret || 'yoursuperamazincookiesecret';
-	var server 			= http.createServer(app);
 	var fs 				= require("fs");
 	var queryParser  	= require('./lib/queryParser.js');
 	var db				= require('./lib/db');
+	var server 			= http.createServer(app);
 
 	var dir 			= {
 		routes	: path + '/routes',
@@ -17,7 +17,9 @@
 	};
 
 
-	
+	if (config.socket) {
+		require('./lib/io').use(server);
+	}
 
 
 	// custom express settings
