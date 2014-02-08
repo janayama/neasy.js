@@ -8,6 +8,7 @@
 	var server 			= http.createServer(app);
 	var fs 				= require("fs");
 	var queryParser  	= require('./lib/queryParser.js');
+	var db				= require('./lib/db');
 
 	var dir 			= {
 		routes	: path + '/routes',
@@ -92,10 +93,13 @@
 			}
 		};
 
+		db.open(function(err){
+			if (err) return console.log(err.toString() + ' - try this "sudo rm /var/lib/mongodb/mongod.lock && sudo -u mongodb mongod -f /etc/mongodb.conf --repair."');
 
-		// Start the web server
-		console.log('App running in port http://' + config.server.domain + ':' + config.server.port);
-		server.listen(config.server.port);
+			// Start the web server
+			console.log('App running in port http://' + config.server.domain + ':' + config.server.port);
+			server.listen(config.server.port);
+		});
 	};
 
 
